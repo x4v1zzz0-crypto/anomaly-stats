@@ -1,33 +1,15 @@
-let stats = {
-  total: 0,
-  today: 0,
-  active: 0,
-  lastDay: new Date().toDateString()
-}
+import { kv } from "@vercel/kv";
 
-export default function handler(req, res) {
-  const today = new Date().toDateString()
+export default async function handler(req, res) {
+  const today = new Date().toISOString().slice(0, 10);
 
-  if (stats.lastDay !== today) {
-    stats.today = 0
-    stats.lastDay = today
-  }
+  const total = await kv.get("total_exec") || 0;
+  const todayExec = await kv.get(`daily_exec:${today}`) || 0;
+  const live = await kv.get("live_users") || 0;
 
-  if (req.method === "POST") {
-    const { action } = req.body || {}
-
-    if (action === "start") {
-      stats.total++
-      stats.today++
-      stats.active++
-    }
-
-    if (action === "stop") {
-      stats.active = Math.max(0, stats.active - 1)
-    }
-
-    return res.json(stats)
-  }
-
-  res.json(stats)
+  res.status(200).json({
+    total,
+    today: todayExec,
+    live
+  });
 }
