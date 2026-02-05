@@ -1,0 +1,28 @@
+<div class="stats-card">
+  <h2>Total permanent</h2>
+  <span id="permanent">0</span>
+</div>
+<div class="stats-card">
+  <h2>Ejecuciones hoy</h2>
+  <span id="today">0</span>
+</div>
+<div class="stats-card">
+  <h2>Usuarios activos</h2>
+  <span id="live">0</span>
+</div>
+
+<script>
+async function actualizarStats(){
+  try {
+    const res = await fetch("/api/stats");
+    const data = await res.json();
+
+    document.getElementById("permanent").innerText = data.permanent;
+    document.getElementById("today").innerText = data.today;
+    document.getElementById("live").innerText = data.live;
+  } catch(e){ console.error(e) }
+}
+
+actualizarStats();
+setInterval(actualizarStats, 2000);
+</script>
