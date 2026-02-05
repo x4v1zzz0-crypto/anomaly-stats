@@ -1,29 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Anomaly Hub Stats</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<h1>ANOMALY HUB</h1>
-
 <div class="card">
-  <span>USUARIOS ACTIVOS</span>
-  <b id="active">0</b>
+  <h2>Total ejecuciones</h2>
+  <span id="total">0</span>
 </div>
 
 <div class="card">
-  <span>EJECUCIONES HOY</span>
-  <b id="today">0</b>
+  <h2>Ejecuciones hoy</h2>
+  <span id="today">0</span>
 </div>
 
 <div class="card">
-  <span>TOTAL HISTÓRICO</span>
-  <b id="total">0</b>
-</div>
+  <h2>Usuarios activos</h2>
+  <span id="live">0</span>
+</div><script>
+async function actualizarStats() {
+  try {
+    const res = await fetch("/api/stats");
+    const data = await res.json();
 
-<script src="script.js"></script>
-</body>
-</html>
+    document.getElementById("total").innerText = data.total;
+    document.getElementById("today").innerText = data.today;
+    document.getElementById("live").innerText = data.live;
+  } catch (e) {
+    console.error("Error cargando stats", e);
+  }
+}
+
+// cargar al entrar
+actualizarStats();
+
+// actualizar cada 2 segundos
+setInterval(actualizarStats, 2000);
+</script>
