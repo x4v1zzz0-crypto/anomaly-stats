@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  background: linear-gradient(160deg,#0a0a0a,#151515);
+  font-family: system-ui;
+  color: white;
+  text-align: center;
+}
+
+h1 {
+  margin: 20px 0;
+  letter-spacing: 2px;
+}
+
+.card {
+  background: #111;
+  margin: 16px;
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.6);
+}
+
+.card span {
+  font-size: 13px;
+  color: #aaa;
+}
+
+.card b {
+  display: block;
+  font-size: 40px;
+  margin-top: 6px;
+}
