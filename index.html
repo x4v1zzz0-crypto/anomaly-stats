@@ -1,33 +1,36 @@
-here<div class="card">
-  <h2>Total ejecuciones</h2>
-  <span id="total">0</span>
-</div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ANOMALY STATS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-<div class="card">
-  <h2>Ejecuciones hoy</h2>
-  <span id="today">0</span>
-</div>
+  <div class="container">
+    <h1>ANOMALY STATS</h1>
 
-<div class="card">
-  <h2>Usuarios activos</h2>
-  <span id="live">0</span>
-</div><script>
-async function actualizarStats() {
-  try {
-    const res = await fetch("/api/stats");
-    const data = await res.json();
+    <div class="card">
+      <h2>TOTAL EJECUCIONES</h2>
+      <span id="total">0</span>
+    </div>
 
-    document.getElementById("total").innerText = data.total;
-    document.getElementById("today").innerText = data.today;
-    document.getElementById("live").innerText = data.live;
-  } catch (e) {
-    console.error("Error cargando stats", e);
-  }
-}
+    <div class="card">
+      <h2>EJECUCIONES HOY</h2>
+      <span id="today">0</span>
+    </div>
 
-// cargar al entrar
-actualizarStats();
+    <div class="card">
+      <h2>USUARIOS ACTIVOS</h2>
+      <span id="live" class="live">0</span>
+    </div>
 
-// actualizar cada 2 segundos
-setInterval(actualizarStats, 2000);
-</script>
+    <div class="footer">
+      ANOMALY HUB • LIVE STATS
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
